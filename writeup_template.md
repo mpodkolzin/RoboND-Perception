@@ -24,6 +24,15 @@
 12. Place all the objects from your pick list in their respective dropoff box and you have completed the challenge!
 13. Looking for a bigger challenge?  Load up the `challenge.world` scenario and see if you can get your perception pipeline working there!
 
+[//]: # (Image References)
+
+[world1]: ./images/world_1.jpg
+[world2]: ./images/world_2.jpg
+[world3]: ./images/world_3.jpg
+
+[confusion_1]: ./images/confusion_1.jpg
+[confusion_2]: ./images/confusion_2.jpg
+
 ## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
@@ -34,24 +43,45 @@
 
 You're reading it!
 
-### Exercise 1, 2 and 3 pipeline implemented
-#### 1. Complete Exercise 1 steps. Pipeline for filtering and RANSAC plane fitting implemented.
+#### Exercise 1,2 pipeline for filtering, segmentation and clustering implemented.  
 
-#### 2. Complete Exercise 2 steps: Pipeline including clustering for segmentation implemented.  
+* step 1: Voxel Downsampling -> voxel_downsample() function
+* step 3: Passthrough Filter -> passthrough_filter() function
+* step 2: Statistical Outlier Removal -> detection_workflow.py -> filter_outliers() function
+* step 4: RANSAC plane fitting -> ransac_filter() function
+* step 5: Cluster Segmentation -> find_cluster_indices() functions
 
-#### 2. Complete Exercise 3 Steps.  Features extracted and SVM trained.  Object recognition implemented.
+#### Exercise 3.  Features extracted and SVM trained.  Object recognition implemented.
+The feature extraction is done in sensor_stick/src/sensor_stick/features.py . The feature vectors consist of:
+* HSV components, each has 32 entries (from the 32 bins of the histogram) , describing the distribution of the component in the trained object
+* x,y components of the normal vectors, with 10 entries each. describing the distribution of normal vector component on the trained object.
+
+Trained model with ~96% accuracy. Below are the confusion matrix from the training session
+
 Here is an example of how to include an image in your writeup.
 
 ![demo-1](https://user-images.githubusercontent.com/20687560/28748231-46b5b912-7467-11e7-8778-3095172b7b19.png)
 
 ### Pick and Place Setup
 
-#### 1. For all three tabletop setups (`test*.world`), perform object recognition, then read in respective pick list (`pick_list_*.yaml`). Next construct the messages that would comprise a valid `PickPlace` request output them to `.yaml` format.
+The 3 test worlds are used to test out the object recognition model. The outputs are saved in output_1.yaml, output_2.yaml, output_3.yaml, inside /perception/pr2_robot/scripts folder. At the place coordinates, I added random noise in the x and y coordinates, to avoid the stacking pieces problem as reported in the lessons
 
-And here's another image! 
-![demo-2](https://user-images.githubusercontent.com/20687560/28748286-9f65680e-7468-11e7-83dc-f1a32380b89c.png)
+The pipeline achieved the following results:
 
-Spend some time at the end to discuss your code, what techniques you used, what worked and why, where the implementation might fail and how you might improve it if you were going to pursue this project further.  
+* world 1: 3/3 (100% - required 100%)
+* world 2: 4/5 (80% - required 80%)
+* world 3: 7/8 (87.5% - required 75%)
+
+##### World 1
+![World 1][world1]
+
+##### World 2
+![World 2][world2]
+
+##### World 3
+![World 3][world3]
+
+
 
 
 
