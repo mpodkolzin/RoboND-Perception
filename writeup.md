@@ -61,7 +61,7 @@ The pipeline achieved the following results:
 ##### World 3 
 ![World 3][world3]
 
-Summary and Closing remarks
+### Summary and Closing remarks
 
 1. I actually implemented Pick & Place routine, but it worked well only for world_1, because
 it only has 3 objects, with more 'packed' worlds2&3 robot arm was constantly kick objects off 
