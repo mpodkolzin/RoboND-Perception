@@ -63,7 +63,7 @@ The pipeline achieved the following results:
 
 Summary and Closing remarks
 
-1. I actually implemented Pick & Place routing, but it worked well only for world_1, because
+1. I actually implemented Pick & Place routine, but it worked well only for world_1, because
 it only has 3 objects, with more 'packed' worlds2&3 robot arm was constantly kick objects off 
 the table. Most likely collision cloud was not computed properly.
 2. There is some room for improvement with object recognition. I would probably experiment further with number of histogram bins, SVC kernel types, adding more features etc.
