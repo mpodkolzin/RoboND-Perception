@@ -37,12 +37,6 @@ if __name__ == '__main__':
        'sticky_notes'
        ]
 
-    models = [\
-        'biscuits',
-       'soap',
-       'soap2',
-       ]
-
     # Disable gravity and delete the ground plane
     initial_setup()
     labeled_features = []
@@ -50,7 +44,7 @@ if __name__ == '__main__':
     for model_name in models:
         spawn_model(model_name)
 
-        for i in range(25):
+        for i in range(500):
             # make five attempts to get a valid a point cloud then give up
             sample_was_good = False
             try_count = 0

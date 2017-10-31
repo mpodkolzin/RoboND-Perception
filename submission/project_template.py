@@ -44,7 +44,7 @@ def make_yaml_dict(test_scene_num, arm_name, object_name, pick_pose, place_pose)
 
 
 def vox_downsample(src_cloud):
-    print("VOX downsampling")
+    print("Applying VOX downsampling")
     vox = src_cloud.make_voxel_grid_filter()
     LEAF_SIZE = 0.005
     vox.set_leaf_size(LEAF_SIZE, LEAF_SIZE, LEAF_SIZE)
@@ -59,7 +59,7 @@ def passthrough_filter(src_cloud):
     filter_axis = 'z'
     passthrough.set_filter_field_name(filter_axis)
     axis_min = 0.60
-    axis_max = 1.0
+    axis_max = 1.1
 
     passthrough.set_filter_limits(axis_min, axis_max)
     res_cloud = passthrough.filter()
@@ -80,6 +80,8 @@ def passthrough_filter(src_cloud):
 
 def ransac_filter(src_cloud):
 
+    print("Applying RANSAC Segmentation")
+
     seg = src_cloud.make_segmenter()
     seg.set_model_type(pcl.SACMODEL_PLANE)
     seg.set_method_type(pcl.SAC_RANSAC)
@@ -88,7 +90,6 @@ def ransac_filter(src_cloud):
     seg.set_distance_threshold(max_distance)
     inliers, coefficients = seg.segment()
 
-    print("Applying RANSAC Segmentation")
 
     cloud_table = src_cloud.extract(inliers, negative=False)
     cloud_objects = src_cloud.extract(inliers, negative=True)
@@ -110,7 +111,7 @@ def filter_outliers(src_cloud):
     return res_cloud
 
 def find_cluster_indices(src_cloud):
-
+    print("Clustering")
     white_cloud = XYZRGB_to_XYZ(src_cloud)
     tree = white_cloud.make_kdtree()
 
@@ -221,7 +222,7 @@ def pcl_callback(pcl_msg):
         
 
         # Add the detected object to the list of detected objects.
-	do = DetectedObject()
+        do = DetectedObject()
         do.label = label
         do.cloud = ros_pcl_cluster
         detected_objects.append(do)
@@ -261,13 +262,8 @@ def pr2_mover(object_list, cloud_table):
 
     print("Object list size = {0}".format(len(object_list_param)))
 
-    # TODO: Parse parameters into individual variables
 
-    # TODO: Rotate PR2 in place to capture side tables for the collision map
-    #joint_publisher.publish()
-
-
-    print("Iterating over objects in the pick list,...")
+    print("Iterating over object list")
     # TODO: Loop through the pick list
     for pick_object_param in object_list_param:
 
@@ -275,10 +271,8 @@ def pr2_mover(object_list, cloud_table):
         pick_object_name = pick_object_param['name']
         pick_object_group = pick_object_param['group']
         
-        print("Looking for [[{}]] to be placed in [[{}]] box.".format(pick_object_name, pick_object_group))
-        
         if(picked_objects.find(pick_object_name)):
-            print(":: {} :: has already been picked, moving on,.. ".format(pick_object_name))
+            print("{0} has already been picked, moving on,.. ".format(pick_object_name))
             continue
         
         object_name = String()   
@@ -295,14 +289,14 @@ def pr2_mover(object_list, cloud_table):
                 pass
             
         if(pick_object_cloud == None):
-            print("error::{0} not found in object list".format(pick_object_name))
+            print("error: {0} not found in object list".format(pick_object_name))
             continue
                             
             
         points_arr = ros_to_pcl(pick_object_cloud).to_array()
 
         pick_object_centroid = np.mean(points_arr, axis=0)[:3] 
-        print("Centroid found : {}".format(pick_object_centroid))
+        print("Centroid found : {0}".format(pick_object_centroid))
 
         pick_labels.append(pick_object_name)
         pick_centroids.append(pick_object_centroid)

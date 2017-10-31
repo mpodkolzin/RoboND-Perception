@@ -128,13 +128,13 @@ def pcl_callback(pcl_msg):
         detected_objects_labels.append(label)
 
         # Publish a label into RViz
-	label_pos = list(white_cloud[pts_list[0]])
+        label_pos = list(white_cloud[pts_list[0]])
         label_pos[2] += .4
         object_markers_pub.publish(make_label(label,label_pos, index))
         
 
         # Add the detected object to the list of detected objects.
-	do = DetectedObject()
+        do = DetectedObject()
         do.label = label
         do.cloud = ros_cluster
         detected_objects.append(do)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
 
     # TODO: Spin while node is not shutdown
     while not rospy.is_shutdown():
-	rospy.spin()
+        rospy.spin()
 
 
 

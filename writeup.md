@@ -58,7 +58,7 @@ The pipeline achieved the following results:
 ##### World 2
 ![World 2][world2]
 
-##### World 3
+##### World 3 
 ![World 3][world3]
 
 Summary and Closing remarks
