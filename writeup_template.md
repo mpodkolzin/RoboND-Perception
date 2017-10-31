@@ -32,7 +32,7 @@ The feature extraction is done in sensor_stick/src/sensor_stick/features.py . Th
 * HSV components, each has 32 entries (from the 32 bins of the histogram) , describing the distribution of the component in the trained object
 * x,y components of the normal vectors, with 10 entries each. describing the distribution of normal vector component on the trained object.
 
-Trained model with ~96% accuracy. Below are the confusion matrix from the training session
+Trained model with ~96-99% accuracy. Below are the confusion matrix from the training session
 
 ![Confusion matrix][confusion_1]
 
@@ -40,8 +40,6 @@ Normalized Confusion matrix
 
 ![Confusion matrix normalized][confusion_2]
 
-
-Here is an example of how to include an image in your writeup.
 
 
 ### Pick and Place Setup
