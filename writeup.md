@@ -28,7 +28,7 @@ You're reading it!
 * step 5: Cluster Segmentation -> find_cluster_indices() functions
 
 #### Exercise 3.  Features extracted and SVM trained.  Object recognition implemented.
-The feature extraction is done in sensor_stick/src/sensor_stick/features.py . The feature vectors consist of:
+The feature extraction is done in submission/features.py . The feature vectors consist of:
 * HSV components, each has 32 entries (from the 32 bins of the histogram) , describing the distribution of the component in the trained object
 * x,y components of the normal vectors, with 10 entries each. describing the distribution of normal vector component on the trained object.
 
@@ -44,7 +44,7 @@ Normalized Confusion matrix
 
 ### Pick and Place Setup
 
-The 3 test worlds are used to test out the object recognition model. The outputs are saved in output_1.yaml, output_2.yaml, output_3.yaml, inside /perception/pr2_robot/scripts folder. At the place coordinates, I added random noise in the x and y coordinates, to avoid the stacking pieces problem as reported in the lessons
+The 3 test worlds are used to test out the object recognition model. The outputs are saved in output_1.yaml, output_2.yaml, output_3.yaml in ./submission folder. At the place coordinates, I added random noise in the x and y coordinates, to avoid the stacking pieces problem as reported in the lessons
 
 The pipeline achieved the following results:
 
@@ -68,9 +68,5 @@ it only has 3 objects, with more 'packed' worlds2&3 robot arm was constantly kic
 the table. Most likely collision cloud was not computed properly.
 2. There is some room for improvement with object recognition. I would probably experiment further with number of histogram bins, SVC kernel types, adding more features etc.
 3. Interesting observation is that 'linear' classifier yielded better results than 'rbf'.
-
-
-
-
 
 
